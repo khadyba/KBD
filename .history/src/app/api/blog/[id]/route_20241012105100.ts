@@ -1,0 +1,77 @@
+import prisma from '@prisma/client';
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const article = await prisma.article.findUnique({
+      where: { id: parseInt(params.id) },
+    });
+
+    if (!article) {
+      return new Response(JSON.stringify({ error: "Article non trouvé" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(JSON.stringify(article), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Erreur interne du serveur" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
+
+export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const body = await request.json();
+    const { title, description, date, author } = body;
+
+    const updatedArticle = await prisma.article.update({
+      where: { id: parseInt(params.id) },
+      data: {
+        title: title,
+        description: description,
+        date: new Date(date),
+        author: author,
+      },
+    });
+
+    return new Response(JSON.stringify(updatedArticle), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      return new Response(JSON.stringify({ error: "Article non trouvé" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(JSON.stringify({ error: "Erreur interne du serveur" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
+
+    
+    export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+      const index = articles.findIndex((article) => article.id === parseInt(params.id, 10));
+      if (index === -1) {
+          return new Response(JSON.stringify({ message: "Article not found" }), {
+              status: 404,
+              headers: { "Content-Type": "application/json" },
+          });
+      }
+      const deletedArticle = articles.splice(index, 1)[0];
+      return new Response(JSON.stringify(deletedArticle), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+      });
+  }
+  

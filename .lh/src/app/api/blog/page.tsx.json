@@ -1,0 +1,46 @@
+{
+    "sourceFile": "src/app/api/blog/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1728656601053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1728656617161,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n import { NextApiRequest, NextApiResponse } from 'next';\n \n // Exemple d'articles en mémoire (idéalement à remplacer par une base de données)\n-let articles = [\n+const articles = [\n   { id: 1, title: \"Article 1\", author: \"Author 1\", date: \"2024-01-01\" },\n   { id: 2, title: \"Article 2\", author: \"Author 2\", date: \"2024-01-02\" },\n ];\n \n"
+                },
+                {
+                    "date": 1728658635705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,30 +1,21 @@\n // /pages/api/blog/index.ts\n \n import { NextApiRequest, NextApiResponse } from 'next';\n+import { PrismaClient } from '@prisma/client';\n \n-// Exemple d'articles en mémoire (idéalement à remplacer par une base de données)\n-const articles = [\n-  { id: 1, title: \"Article 1\", author: \"Author 1\", date: \"2024-01-01\" },\n-  { id: 2, title: \"Article 2\", author: \"Author 2\", date: \"2024-01-02\" },\n-];\n+const prisma = new PrismaClient();\n \n-// Gérer les requêtes GET et POST\n-export default function handler(req: NextApiRequest, res: NextApiResponse) {\n+export default async function handler(req: NextApiRequest, res: NextApiResponse) {\n   if (req.method === 'GET') {\n-    // Récupérer tous les articles\n+    const articles = await prisma.article.findMany();\n     res.status(200).json(articles);\n   } else if (req.method === 'POST') {\n-    // Ajouter un nouvel article\n-    const { title, author, date } = req.body;\n-    const newArticle = {\n-      id: articles.length + 1,  // Générer un nouvel id\n-      title,\n-      author,\n-      date,\n-    };\n-    articles.push(newArticle);\n+    const { title, author, content } = req.body;\n+    const newArticle = await prisma.article.create({\n+      data: { title, author, content },\n+    });\n     res.status(201).json(newArticle);\n   } else {\n-    res.status(405).json({ message: \"Method not allowed\" });\n+    res.status(405).json({ message: 'Method not allowed' });\n   }\n }\n"
+                },
+                {
+                    "date": 1728658642740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     res.status(200).json(articles);\n   } else if (req.method === 'POST') {\n     const { title, author, content } = req.body;\n     const newArticle = await prisma.article.create({\n-      data: { title, author, content },\n+      data: { title, author, description },\n     });\n     res.status(201).json(newArticle);\n   } else {\n     res.status(405).json({ message: 'Method not allowed' });\n"
+                },
+                {
+                    "date": 1728658649513,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n   if (req.method === 'GET') {\n     const articles = await prisma.article.findMany();\n     res.status(200).json(articles);\n   } else if (req.method === 'POST') {\n-    const { title, author, content } = req.body;\n+    const { title, author, description } = req.body;\n     const newArticle = await prisma.article.create({\n       data: { title, author, description },\n     });\n     res.status(201).json(newArticle);\n"
+                },
+                {
+                    "date": 1728721533163,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     res.status(200).json(articles);\n   } else if (req.method === 'POST') {\n     const { title, author, description } = req.body;\n     const newArticle = await prisma.article.create({\n-      data: { title, author, description },\n+      data: { title, author, description ,},\n     });\n     res.status(201).json(newArticle);\n   } else {\n     res.status(405).json({ message: 'Method not allowed' });\n"
+                },
+                {
+                    "date": 1728721540352,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     res.status(200).json(articles);\n   } else if (req.method === 'POST') {\n     const { title, author, description } = req.body;\n     const newArticle = await prisma.article.create({\n-      data: { title, author, description ,},\n+      data: { title, author, description ,date,},\n     });\n     res.status(201).json(newArticle);\n   } else {\n     res.status(405).json({ message: 'Method not allowed' });\n"
+                },
+                {
+                    "date": 1728721549367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     res.status(200).json(articles);\n   } else if (req.method === 'POST') {\n     const { title, author, description } = req.body;\n     const newArticle = await prisma.article.create({\n-      data: { title, author, description ,date,},\n+      data: { title, author, description },\n     });\n     res.status(201).json(newArticle);\n   } else {\n     res.status(405).json({ message: 'Method not allowed' });\n"
+                }
+            ],
+            "date": 1728656601053,
+            "name": "Commit-0",
+            "content": "// /pages/api/blog/index.ts\n\nimport { NextApiRequest, NextApiResponse } from 'next';\n\n// Exemple d'articles en mémoire (idéalement à remplacer par une base de données)\nlet articles = [\n  { id: 1, title: \"Article 1\", author: \"Author 1\", date: \"2024-01-01\" },\n  { id: 2, title: \"Article 2\", author: \"Author 2\", date: \"2024-01-02\" },\n];\n\n// Gérer les requêtes GET et POST\nexport default function handler(req: NextApiRequest, res: NextApiResponse) {\n  if (req.method === 'GET') {\n    // Récupérer tous les articles\n    res.status(200).json(articles);\n  } else if (req.method === 'POST') {\n    // Ajouter un nouvel article\n    const { title, author, date } = req.body;\n    const newArticle = {\n      id: articles.length + 1,  // Générer un nouvel id\n      title,\n      author,\n      date,\n    };\n    articles.push(newArticle);\n    res.status(201).json(newArticle);\n  } else {\n    res.status(405).json({ message: \"Method not allowed\" });\n  }\n}\n"
+        }
+    ]
+}

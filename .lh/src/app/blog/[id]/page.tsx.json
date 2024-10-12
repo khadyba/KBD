@@ -1,0 +1,262 @@
+{
+    "sourceFile": "src/app/blog/[id]/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 61,
+            "patches": [
+                {
+                    "date": 1728655314026,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1728655804890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,26 +1,26 @@\n-// import { articles } from \"@/app/datas\";\n-// import { Metadata } from \"next\";\n+import { articles } from \"@/app/datas\";\n+import { Metadata } from \"next\";\n \n-// export function generateMetadata({ params }: { params: { id: string }}): Metadata {\n-//     const article = articles.find((element) => element.id === parseInt(params.id));\n-//     return {\n-//         title: article?.title,\n-//         description: article?.description\n-//     }\n-// }\n+export function generateMetadata({ params }: { params: { id: string }}): Metadata {\n+    const article = articles.find((element) => element.id === parseInt(params.id));\n+    return {\n+        title: article?.title,\n+        description: article?.description\n+    }\n+}\n \n-// export default function ArticlePage({ params }: { params: { id: string }}) {\n-//     const article = articles.find((element) => element.id === parseInt(params.id));\n-//     return (\n-//         <>\n-//             {article &&\n-//                 <div style={{\n-//                     padding: '1rem'\n-//                 }}>\n-//                     <h2>{article.title} le {article.date} par {article.author}</h2>\n-//                     <div>{article.description}</div>\n-//                 </div>\n-//             }\n-//         </>\n-//     )\n-// }\n+export default function ArticlePage({ params }: { params: { id: string }}) {\n+    const article = articles.find((element) => element.id === parseInt(params.id));\n+    return (\n+        <>\n+            {article &&\n+                <div style={{\n+                    padding: '1rem'\n+                }}>\n+                    <h2>{article.title} le {article.date} par {article.author}</h2>\n+                    <div>{article.description}</div>\n+                </div>\n+            }\n+        </>\n+    )\n+}\n"
+                },
+                {
+                    "date": 1728724958241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,26 +1,26 @@\n-import { articles } from \"@/app/datas\";\n-import { Metadata } from \"next\";\n+// import { articles } from \"@/app/datas\";\n+// import { Metadata } from \"next\";\n \n-export function generateMetadata({ params }: { params: { id: string }}): Metadata {\n-    const article = articles.find((element) => element.id === parseInt(params.id));\n-    return {\n-        title: article?.title,\n-        description: article?.description\n-    }\n-}\n+// export function generateMetadata({ params }: { params: { id: string }}): Metadata {\n+//     const article = articles.find((element) => element.id === parseInt(params.id));\n+//     return {\n+//         title: article?.title,\n+//         description: article?.description\n+//     }\n+// }\n \n-export default function ArticlePage({ params }: { params: { id: string }}) {\n-    const article = articles.find((element) => element.id === parseInt(params.id));\n-    return (\n-        <>\n-            {article &&\n-                <div style={{\n-                    padding: '1rem'\n-                }}>\n-                    <h2>{article.title} le {article.date} par {article.author}</h2>\n-                    <div>{article.description}</div>\n-                </div>\n-            }\n-        </>\n-    )\n-}\n+// export default function ArticlePage({ params }: { params: { id: string }}) {\n+//     const article = articles.find((element) => element.id === parseInt(params.id));\n+//     return (\n+//         <>\n+//             {article &&\n+//                 <div style={{\n+//                     padding: '1rem'\n+//                 }}>\n+//                     <h2>{article.title} le {article.date} par {article.author}</h2>\n+//                     <div>{article.description}</div>\n+//                 </div>\n+//             }\n+//         </>\n+//     )\n+// }\n"
+                },
+                {
+                    "date": 1728724973986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,4 +23,25 @@\n //             }\n //         </>\n //     )\n // }\n+import { prisma } from \"@/lib/prisma\"; \n+import { Metadata } from \"next\";\n+\n+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n+    try {\n+        const article = await prisma.article.findUnique({\n+            where: { id: parseInt(params.id) },\n+        });\n+\n+        return {\n+            title: article?.title || \"Article non trouvé\",\n+            description: article?.description || \"Description non disponible\",\n+        };\n+    } catch (error) {\n+        console.error(\"Erreur lors de la récupération de l'article pour les métadonnées:\", error);\n+        return {\n+            title: \"Erreur interne\",\n+            description: \"Impossible de récupérer les informations de l'article\",\n+        };\n+    }\n+}\n"
+                },
+                {
+                    "date": 1728724981993,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@/lib/prisma\"; \n+import { Prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728724989319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { Prisma } from \"@/lib/prisma\"; \n+import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728724995573,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@/lib/prisma\"; \n+import { prisma } from \"@/\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725000937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@/\"; \n+import { prisma } from \"@\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725015430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@\"; \n+import { prisma } from \"./\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725021077,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"./\"; \n+import { prisma } from \"\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725049618,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"\"; \n+import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725066900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,4 +44,35 @@\n             description: \"Impossible de récupérer les informations de l'article\",\n         };\n     }\n }\n+import { prisma } from \"@/lib/prisma\"; // Assure-toi que `prisma` est correctement configuré\n+import { Article } from \"../types\"; // Si tu as un type Article défini\n+\n+export default async function ArticlePage({ params }: { params: { id: string } }) {\n+    // Requête asynchrone pour récupérer l'article par son ID\n+    let article: Article | null = null;\n+    \n+    try {\n+        article = await prisma.article.findUnique({\n+            where: { id: parseInt(params.id) },\n+        });\n+    } catch (error) {\n+        console.error('Erreur lors de la récupération de l\\'article:', error);\n+    }\n+\n+    if (!article) {\n+        return (\n+            <div style={{ padding: '1rem', color: 'red' }}>\n+                <h1>Article non trouvé</h1>\n+                <p>Désolé, l'article que vous cherchez n'existe pas.</p>\n+            </div>\n+        );\n+    }\n+\n+    return (\n+        <div style={{ padding: '1rem' }}>\n+            <h2>{article.title} le {article.date} par {article.author}</h2>\n+            <div>{article.description}</div>\n+        </div>\n+    );\n+}\n"
+                },
+                {
+                    "date": 1728725073027,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n             description: \"Impossible de récupérer les informations de l'article\",\n         };\n     }\n }\n-import { prisma } from \"@/lib/prisma\"; // Assure-toi que `prisma` est correctement configuré\n+\n import { Article } from \"../types\"; // Si tu as un type Article défini\n \n export default async function ArticlePage({ params }: { params: { id: string } }) {\n     // Requête asynchrone pour récupérer l'article par son ID\n"
+                },
+                {
+                    "date": 1728725081646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,11 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n+import { Article } from \"../types\"; // Si tu as un type Article défini\n \n+\n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n         const article = await prisma.article.findUnique({\n             where: { id: parseInt(params.id) },\n@@ -45,9 +47,8 @@\n         };\n     }\n }\n \n-import { Article } from \"../types\"; // Si tu as un type Article défini\n \n export default async function ArticlePage({ params }: { params: { id: string } }) {\n     // Requête asynchrone pour récupérer l'article par son ID\n     let article: Article | null = null;\n"
+                },
+                {
+                    "date": 1728725087332,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"../types\"; // Si tu as un type Article défini\n+import { Article } from \"../\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725105968,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"../\n+import { Article } from \"./\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725111403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"./\n+import { Article } from \"\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725117353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"\"\n+import { Article } from \"../\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725122681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"../\"\n+import { Article } from \"\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725128011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"\"\n+import { Article } from \"/\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725135222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"/\"\n+import { Article } from \"@\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725142137,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"@\"\n+import { Article } from \"@/app\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n"
+                },
+                {
+                    "date": 1728725157266,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n //     )\n // }\n import { prisma } from \"@/lib/prisma\"; \n import { Metadata } from \"next\";\n-import { Article } from \"@/app\"\n+import { Article } from \"@/app/types\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n     try {\n@@ -64,9 +64,9 @@\n     if (!article) {\n         return (\n             <div style={{ padding: '1rem', color: 'red' }}>\n                 <h1>Article non trouvé</h1>\n-                <p>Désolé, l'article que vous cherchez n'existe pas.</p>\n+                <p>Désolé, l' article que vous cherchez n'existe pas.</p>\n             </div>\n         );\n     }\n \n"
+                },
+                {
+                    "date": 1728725163834,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n     if (!article) {\n         return (\n             <div style={{ padding: '1rem', color: 'red' }}>\n                 <h1>Article non trouvé</h1>\n-                <p>Désolé, l' article que vous cherchez n'existe pas.</p>\n+                <p>Désolé, l'&apos article que vous cherchez n'existe pas.</p>\n             </div>\n         );\n     }\n \n"
+                },
+                {
+                    "date": 1728725174520,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n     if (!article) {\n         return (\n             <div style={{ padding: '1rem', color: 'red' }}>\n                 <h1>Article non trouvé</h1>\n-                <p>Désolé, l'&apos article que vous cherchez n'existe pas.</p>\n+                <p>Désolé, l&apos; article que vous cherchez n'&apos;existe pas.</p>\n             </div>\n         );\n     }\n \n"
+                },
+                {
+                    "date": 1728725200816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@/lib/prisma\"; \n+import { prisma } from \"\"\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n@@ -64,9 +64,9 @@\n     if (!article) {\n         return (\n             <div style={{ padding: '1rem', color: 'red' }}>\n                 <h1>Article non trouvé</h1>\n-                <p>Désolé, l&apos; article que vous cherchez n'&apos;existe pas.</p>\n+                <p>Désolé, l&apos; article que vous cherchez n&apos;existe pas.</p>\n             </div>\n         );\n     }\n \n"
+                },
+                {
+                    "date": 1728725206886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"\"\"; \n+import { prisma } from \"/\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725214437,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/\"; \n+import { prisma } from \"./\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725225939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"./\"; \n+import { prisma } from \"../\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725232666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"../\"; \n+import { prisma } from \"/pri\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725238059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/pri\"; \n+import { prisma } from \"@\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725247961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@\"; \n+import { risma } from \"@prisma/client\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725253959,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { risma } from \"@prisma/client\"; \n+import { prisma } from \"@prisma/client\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725263564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@prisma/client\"; \n+import { prisma } from \"@\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725274469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"@\"; \n+import { prisma } from \"/lib\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725282948,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/lib\"; \n+import { prisma } from \"/lib/p\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725290294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/lib/p\"; \n+import { prisma } from \"/lib/prisma\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725450607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/lib/prisma\"; \n+import { prisma } from \"\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725459127,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"\"; \n+import { prisma } from \"/home\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725591094,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/home\"; \n+import { prisma } from \"/lib/\"; \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725612113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,10 @@\n //             }\n //         </>\n //     )\n // }\n-import { prisma } from \"/lib/\"; \n+import prisma from \"../lib/prisma\"; // Si ton fichier est dans un sous-dossier\n+\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725617814,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../lib/prisma\"; // Si ton fichier est dans un sous-dossier\n+import prisma from \"../lib/prisma\"; /\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725624986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../lib/prisma\"; /\n+import prisma from \"../lib/\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725630465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../lib/\"\n+import prisma from \"../\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725641468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../\"\n+import prisma from \"@\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725648762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"@\"\n+import prisma from \"@/\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725657828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"@/\"\n+import prisma from \"@/lib/prisma\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725667501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"@/lib/prisma\"\n+import prisma from \".\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725680447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \".\"\n+import prisma from \"/\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725691791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"/\"\n+import prisma from \"/lib\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725698192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"/lib\"\n+import prisma from \"/lib/prisma\"\n \n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n"
+                },
+                {
+                    "date": 1728725722281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,10 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"/lib/prisma\"\n-\n+import prisma from \"@/lib/prisma\";\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725907748,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,10 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"@/lib/prisma\";\n+import prisma from \"../../lib/prisma\";  // Remonte d'un niveau pour accéder au dossier lib\n+\";\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725917653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,10 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../../lib/prisma\";  // Remonte d'un niveau pour accéder au dossier lib\n-\";\n+import prisma from \"../../lib/prisma\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725922790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../../lib/prisma\"\n+import prisma from \"../../\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725932937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../../\"\n+import prisma from \".././\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725938390,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \".././\"\n+import prisma from \"../..\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725946422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../..\"\n+import prisma from \"../../..\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725953403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../../..\"\n+import prisma from \"../../../../\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725959794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../../../../\"\n+import prisma from \"../../../../lib/\"\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728725983630,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,10 @@\n //             }\n //         </>\n //     )\n // }\n-import prisma from \"../../../../lib/\"\n+import prisma from \"../../../../lib/prisma\"\n+\n import { Metadata } from \"next\";\n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728726183226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,9 @@\n // }\n import prisma from \"../../../../lib/prisma\"\n \n import { Metadata } from \"next\";\n+\n import { Article } from \"@/app/types\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n@@ -48,13 +49,11 @@\n         };\n     }\n }\n \n-\n export default async function ArticlePage({ params }: { params: { id: string } }) {\n-    // Requête asynchrone pour récupérer l'article par son ID\n     let article: Article | null = null;\n-    \n+\n     try {\n         article = await prisma.article.findUnique({\n             where: { id: parseInt(params.id) },\n         });\n@@ -65,16 +64,18 @@\n     if (!article) {\n         return (\n             <div style={{ padding: '1rem', color: 'red' }}>\n                 <h1>Article non trouvé</h1>\n-                <p>Désolé, l&apos; article que vous cherchez n&apos;existe pas.</p>\n+                <p>Désolé, l&apos;article que vous cherchez n&apos;existe pas.</p>\n             </div>\n         );\n     }\n \n     return (\n         <div style={{ padding: '1rem' }}>\n-            <h2>{article.title} le {article.date} par {article.author}</h2>\n+            {/* Utilise createdAt pour afficher la date */}\n+            <h2>{article.title} le {article.createdAt.toLocaleDateString()} par {article.author}</h2>\n             <div>{article.description}</div>\n         </div>\n     );\n }\n+\n"
+                }
+            ],
+            "date": 1728655314026,
+            "name": "Commit-0",
+            "content": "// import { articles } from \"@/app/datas\";\n// import { Metadata } from \"next\";\n\n// export function generateMetadata({ params }: { params: { id: string }}): Metadata {\n//     const article = articles.find((element) => element.id === parseInt(params.id));\n//     return {\n//         title: article?.title,\n//         description: article?.description\n//     }\n// }\n\n// export default function ArticlePage({ params }: { params: { id: string }}) {\n//     const article = articles.find((element) => element.id === parseInt(params.id));\n//     return (\n//         <>\n//             {article &&\n//                 <div style={{\n//                     padding: '1rem'\n//                 }}>\n//                     <h2>{article.title} le {article.date} par {article.author}</h2>\n//                     <div>{article.description}</div>\n//                 </div>\n//             }\n//         </>\n//     )\n// }\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/prisma.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1728725585848,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1728725585848,
+            "name": "Commit-0",
+            "content": "// lib/prisma.ts\n\nimport { PrismaClient } from '@prisma/client';\n\n// Crée une instance unique de PrismaClient pour éviter les connexions multiples à la base de données\nconst prisma = new PrismaClient();\n\nexport default prisma;\n"
+        }
+    ]
+}

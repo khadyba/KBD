@@ -1,0 +1,62 @@
+{
+    "sourceFile": "src/app/api/blog/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1728657342901,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1728657351368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n-import { articles } from \"./data\";\n \n \n \n+\n export async function GET() {\n \n     return Response.json(articles);\n     \n"
+                },
+                {
+                    "date": 1728657361205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,11 @@\n \n \n+const articles = [\n+    { id: 1, title: \"Article 1\", author: \"Author 1\", date: \"2024-01-01\" },\n+    { id: 2, title: \"Article 2\", author: \"Author 2\", date: \"2024-01-02\" },\n+  ];\n \n-\n export async function GET() {\n \n     return Response.json(articles);\n     \n"
+                },
+                {
+                    "date": 1728657370867,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,8 @@\n \n export async function GET() {\n \n     return Response.json(articles);\n-    \n }\n \n export async function POST(request : Request) {\n \n"
+                },
+                {
+                    "date": 1728657378675,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,14 +3,11 @@\n const articles = [\n     { id: 1, title: \"Article 1\", author: \"Author 1\", date: \"2024-01-01\" },\n     { id: 2, title: \"Article 2\", author: \"Author 2\", date: \"2024-01-02\" },\n   ];\n-\n export async function GET() {\n-\n     return Response.json(articles);\n }\n-\n export async function POST(request : Request) {\n \n     const article = await request.json()\n \n"
+                },
+                {
+                    "date": 1728720978367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,12 @@\n \n \n-const articles = [\n-    { id: 1, title: \"Article 1\", author: \"Author 1\", date: \"2024-01-01\" },\n-    { id: 2, title: \"Article 2\", author: \"Author 2\", date: \"2024-01-02\" },\n-  ];\n+\n export async function GET() {\n     return Response.json(articles);\n }\n export async function POST(request : Request) {\n-\n     const article = await request.json()\n-\n     const newArticle = {\n \n         id: articles.length + 1,\n         title : article.tile,\n"
+                },
+                {
+                    "date": 1728721451591,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,29 @@\n \n \n \n+import { PrismaClient } from '@prisma/client';\n+\n+const prisma = new PrismaClient();\n+\n export async function GET() {\n-    return Response.json(articles);\n+    try {\n+        // Récupérer tous les articles depuis la base de données\n+        const articles = await prisma.article.findMany();\n+        return new Response(JSON.stringify(articles), {\n+            headers: {\n+                \"Content-Type\": \"application/json\"\n+            },\n+            status: 200\n+        });\n+    } catch (error) {\n+        console.error('Erreur lors de la récupération des articles:', error);\n+        return new Response(JSON.stringify({ message: 'Erreur interne du serveur' }), {\n+            status: 500\n+        });\n+    }\n }\n+\n export async function POST(request : Request) {\n     const article = await request.json()\n     const newArticle = {\n \n"
+                },
+                {
+                    "date": 1728721457076,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,5 @@\n \n-\n-\n import { PrismaClient } from '@prisma/client';\n \n const prisma = new PrismaClient();\n \n"
+                },
+                {
+                    "date": 1728721499105,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,27 +20,32 @@\n         });\n     }\n }\n \n-export async function POST(request : Request) {\n-    const article = await request.json()\n-    const newArticle = {\n+export async function POST(request: Request) {\n+    try {\n+        const { title, description, date, author } = await request.json();\n \n-        id: articles.length + 1,\n-        title : article.tile,\n-        description: article.description,\n-        date: article.date,\n-        author: article.author,\n+        // Insérer un nouvel article dans la base de données\n+        const newArticle = await prisma.article.create({\n+            data: {\n+                title: title,\n+                description: description,\n+                date: new Date(date), // Assurez-vous que le champ date soit bien formaté\n+                author: author\n+            }\n+        });\n \n+        return new Response(JSON.stringify(newArticle), {\n+            headers: {\n+                \"Content-Type\": \"application/json\"\n+            },\n+            status: 201\n+        });\n+\n+    } catch (error) {\n+        console.error('Erreur lors de la création de l\\'article:', error);\n+        return new Response(JSON.stringify({ message: 'Erreur interne du serveur' }), {\n+            status: 500\n+        });\n     }\n-    articles.push(newArticle)\n-\n-    return new Response(JSON.stringify(newArticle), {\n-\n-        headers: {\n-\n-            \"Content-Type\": \"applications/json\"\n-        },\n-        status: 201\n-    })\n-\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1728721507011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                date: new Date(date), // Assurez-vous que le champ date soit bien formaté\n+                date: new Date(date),\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728721577464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,8 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                date: new Date(date),\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728721582830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n }\n \n export async function POST(request: Request) {\n     try {\n-        const { title, description, date, author } = await request.json();\n+        const { title, description,author } = await request.json();\n \n         // Insérer un nouvel article dans la base de données\n         const newArticle = await prisma.article.create({\n             data: {\n"
+                }
+            ],
+            "date": 1728657342901,
+            "name": "Commit-0",
+            "content": "import { articles } from \"./data\";\n\n\n\nexport async function GET() {\n\n    return Response.json(articles);\n    \n}\n\nexport async function POST(request : Request) {\n\n    const article = await request.json()\n\n    const newArticle = {\n\n        id: articles.length + 1,\n        title : article.tile,\n        description: article.description,\n        date: article.date,\n        author: article.author,\n\n    }\n    articles.push(newArticle)\n\n    return new Response(JSON.stringify(newArticle), {\n\n        headers: {\n\n            \"Content-Type\": \"applications/json\"\n        },\n        status: 201\n    })\n\n}"
+        }
+    ]
+}
