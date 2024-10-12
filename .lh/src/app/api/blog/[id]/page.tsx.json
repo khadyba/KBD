@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 10,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1728656635297,
@@ -48,6 +48,10 @@
                 {
                     "date": 1728723095154,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n import { PrismaClient } from '@prisma/client';\n import { NextApiRequest, NextApiResponse } from 'next';\n \n const prisma = new PrismaClient();\n-\n export default async function handler(req: NextApiRequest, res: NextApiResponse) {\n     const { id } = req.query;\n \n     switch (req.method) {\n"
+                },
+                {
+                    "date": 1728728988075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n                 handleError(res, error);\n             }\n             break;\n \n-        case 'PUT':\n+        case 'PATCH':\n             try {\n                 const updatedData = req.body; \n                 const updatedArticle = await prisma.article.update({\n                     where: {\n"
                 }
             ],
             "date": 1728656635297,

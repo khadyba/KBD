@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 61,
+            "activePatchIndex": 75,
             "patches": [
                 {
                     "date": 1728655314026,
@@ -252,6 +252,62 @@
                 {
                     "date": 1728726183226,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,9 @@\n // }\n import prisma from \"../../../../lib/prisma\"\n \n import { Metadata } from \"next\";\n+\n import { Article } from \"@/app/types\"\n \n \n export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\n@@ -48,13 +49,11 @@\n         };\n     }\n }\n \n-\n export default async function ArticlePage({ params }: { params: { id: string } }) {\n-    // Requête asynchrone pour récupérer l'article par son ID\n     let article: Article | null = null;\n-    \n+\n     try {\n         article = await prisma.article.findUnique({\n             where: { id: parseInt(params.id) },\n         });\n@@ -65,16 +64,18 @@\n     if (!article) {\n         return (\n             <div style={{ padding: '1rem', color: 'red' }}>\n                 <h1>Article non trouvé</h1>\n-                <p>Désolé, l&apos; article que vous cherchez n&apos;existe pas.</p>\n+                <p>Désolé, l&apos;article que vous cherchez n&apos;existe pas.</p>\n             </div>\n         );\n     }\n \n     return (\n         <div style={{ padding: '1rem' }}>\n-            <h2>{article.title} le {article.date} par {article.author}</h2>\n+            {/* Utilise createdAt pour afficher la date */}\n+            <h2>{article.title} le {article.createdAt.toLocaleDateString()} par {article.author}</h2>\n             <div>{article.description}</div>\n         </div>\n     );\n }\n+\n"
+                },
+                {
+                    "date": 1728729232549,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,8 +74,9 @@\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n             <h2>{article.title} le {article.createdAt.toLocaleDateString()} par {article.author}</h2>\n             <div>{article.description}</div>\n+            \n         </div>\n     );\n }\n \n"
+                },
+                {
+                    "date": 1728729260343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,16 +67,20 @@\n                 <h1>Article non trouvé</h1>\n                 <p>Désolé, l&apos;article que vous cherchez n&apos;existe pas.</p>\n             </div>\n         );\n+        const articleDate = typeof article.createdAt === 'string' ? new Date(article.createdAt) : article.createdAt;\n+\n     }\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n             <h2>{article.title} le {article.createdAt.toLocaleDateString()} par {article.author}</h2>\n-            <div>{article.description}</div>\n-            \n+            <div>{article.description}\n+            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n+            </div>\n+\n         </div>\n     );\n }\n \n"
+                },
+                {
+                    "date": 1728729267440,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,11 +67,11 @@\n                 <h1>Article non trouvé</h1>\n                 <p>Désolé, l&apos;article que vous cherchez n&apos;existe pas.</p>\n             </div>\n         );\n-        const articleDate = typeof article.createdAt === 'string' ? new Date(article.createdAt) : article.createdAt;\n-\n+        \n     }\n+    const articleDate = typeof article.createdAt === 'string' ? new Date(article.createdAt) : article.createdAt;\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n"
+                },
+                {
+                    "date": 1728729306711,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,9 +74,9 @@\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n-            <h2>{article.title} le {article.createdAt.toLocaleDateString()} par {article.author}</h2>\n+            <h2>{article.title} le {article.createdAt.toLocaleDateString()}  par {article.author}</h2>\n             <div>{article.description}\n             <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n             </div>\n \n"
+                },
+                {
+                    "date": 1728729313396,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,9 +74,9 @@\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n-            <h2>{article.title} le {article.createdAt.toLocaleDateString()}  par {article.author}</h2>\n+            <h2>{article.title} le {article.createdAt.toLocaleDateString()} <br /> par {article.author}</h2>\n             <div>{article.description}\n             <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n             </div>\n \n"
+                },
+                {
+                    "date": 1728729354232,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,8 +75,19 @@\n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n             <h2>{article.title} le {article.createdAt.toLocaleDateString()} <br /> par {article.author}</h2>\n+             {/* Utilisation du composant Image pour optimiser l'image */}\n+             {article.image && (\n+                <Image \n+                  src={article.image} \n+                  alt={article.title} \n+                  width={600} \n+                  height={400} \n+                  className=\"mt-2 mb-4 rounded-lg\"\n+                  loading=\"lazy\"  \n+                />\n+              )}\n             <div>{article.description}\n             <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n             </div>\n \n"
+                },
+                {
+                    "date": 1728729363176,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,9 @@\n // }\n import prisma from \"../../../../lib/prisma\"\n \n import { Metadata } from \"next\";\n+import \n \n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728729369746,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,34 +1,9 @@\n-// import { articles } from \"@/app/datas\";\n-// import { Metadata } from \"next\";\n \n-// export function generateMetadata({ params }: { params: { id: string }}): Metadata {\n-//     const article = articles.find((element) => element.id === parseInt(params.id));\n-//     return {\n-//         title: article?.title,\n-//         description: article?.description\n-//     }\n-// }\n-\n-// export default function ArticlePage({ params }: { params: { id: string }}) {\n-//     const article = articles.find((element) => element.id === parseInt(params.id));\n-//     return (\n-//         <>\n-//             {article &&\n-//                 <div style={{\n-//                     padding: '1rem'\n-//                 }}>\n-//                     <h2>{article.title} le {article.date} par {article.author}</h2>\n-//                     <div>{article.description}</div>\n-//                 </div>\n-//             }\n-//         </>\n-//     )\n-// }\n import prisma from \"../../../../lib/prisma\"\n \n import { Metadata } from \"next\";\n-import \n+import Image from \"next/image\";\n \n import { Article } from \"@/app/types\"\n \n \n"
+                },
+                {
+                    "date": 1728729416964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n-            <h2>{article.title} le {article.createdAt.toLocaleDateString()} <br /> par {article.author}</h2>\n+            <h2>{article.title}  <br /> par {article.author}</h2>\n              {/* Utilisation du composant Image pour optimiser l'image */}\n              {article.image && (\n                 <Image \n                   src={article.image} \n"
+                },
+                {
+                    "date": 1728729428627,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n-            <h2>{article.title}  <br /> par {article.author}</h2>\n+            <h2>{article.title}  {article.author}</h2>\n              {/* Utilisation du composant Image pour optimiser l'image */}\n              {article.image && (\n                 <Image \n                   src={article.image} \n"
+                },
+                {
+                    "date": 1728729437827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n \n     return (\n         <div style={{ padding: '1rem' }}>\n             {/* Utilise createdAt pour afficher la date */}\n-            <h2>{article.title}  {article.author}</h2>\n+            <h2>{article.title} </h2>\n              {/* Utilisation du composant Image pour optimiser l'image */}\n              {article.image && (\n                 <Image \n                   src={article.image} \n@@ -63,9 +63,9 @@\n                   loading=\"lazy\"  \n                 />\n               )}\n             <div>{article.description}\n-            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n+            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()} </p>\n             </div>\n \n         </div>\n     );\n"
+                },
+                {
+                    "date": 1728729445036,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n                   loading=\"lazy\"  \n                 />\n               )}\n             <div>{article.description}\n-            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()} </p>\n+            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()} <br {article.author}</p>\n             </div>\n \n         </div>\n     );\n"
+                },
+                {
+                    "date": 1728729451660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,10 @@\n                   loading=\"lazy\"  \n                 />\n               )}\n             <div>{article.description}\n-            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()} <br {article.author}</p>\n+            <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()} <br />\n+             {article.author}</p>\n             </div>\n \n         </div>\n     );\n"
+                },
+                {
+                    "date": 1728729457144,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n                 />\n               )}\n             <div>{article.description}\n             <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()} <br />\n-             {article.author}</p>\n+            Auteur  {article.author}</p>\n             </div>\n \n         </div>\n     );\n"
                 }
             ],
             "date": 1728655314026,

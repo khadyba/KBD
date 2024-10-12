@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1728658232227,
@@ -28,6 +28,10 @@
                 {
                     "date": 1728658278128,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,7 +17,7 @@\n model Article {\n   id        Int      @id @default(autoincrement())\n   title     String\n   author    String\n-  descriptoin   String\n+   description   String\n   createdAt DateTime @default(now())\n }\n"
+                },
+                {
+                    "date": 1728727080632,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,7 +17,8 @@\n model Article {\n   id        Int      @id @default(autoincrement())\n   title     String\n   author    String\n-   description   String\n+  description   String\n+   image       String?\n   createdAt DateTime @default(now())\n }\n"
                 }
             ],
             "date": 1728658232227,

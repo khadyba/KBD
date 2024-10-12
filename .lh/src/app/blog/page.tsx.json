@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 29,
+            "activePatchIndex": 43,
             "patches": [
                 {
                     "date": 1728655223487,
@@ -124,6 +124,62 @@
                 {
                     "date": 1728726912677,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,12 +35,14 @@\n           // Convertir `createdAt` en Date si c'est une chaîne ISO\n           const articleDate = typeof article.createdAt === 'string' ? new Date(article.createdAt) : article.createdAt;\n           \n           return (\n-            <div key={article.id}>\n-              <h className=\"text-bo\">Titre: {article.title}</h2>\n-              <h3>Descriptions: {article.description}</h3>\n-              <p>Par {article.author} le {articleDate.toLocaleDateString()}</p>\n+            <div key={article.id} className=\"mb-4 p-4 border border-gray-300 rounded-lg\">\n+              <h2 className=\"text-xl font-bold\">Titre: {article.title}</h2>\n+              <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n+              <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n+                Voir Détail\n+              </a>\n             </div>\n           );\n         })\n       )}\n"
+                },
+                {
+                    "date": 1728727249083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,15 +31,20 @@\n       {articles.length === 0 && !error ? (\n         <p>Aucun article disponible.</p>\n       ) : (\n         articles.map((article) => {\n-          // Convertir `createdAt` en Date si c'est une chaîne ISO\n           const articleDate = typeof article.createdAt === 'string' ? new Date(article.createdAt) : article.createdAt;\n-          \n+\n           return (\n             <div key={article.id} className=\"mb-4 p-4 border border-gray-300 rounded-lg\">\n               <h2 className=\"text-xl font-bold\">Titre: {article.title}</h2>\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n+\n+              {/* Affichage de l'image si elle existe */}\n+              {article.image && (\n+                <img src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+              )}\n+\n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n               </a>\n             </div>\n"
+                },
+                {
+                    "date": 1728727298619,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n               {/* Affichage de l'image si elle existe */}\n               {article.image && (\n-                <img src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <I src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727306252,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n               {/* Affichage de l'image si elle existe */}\n               {article.image && (\n-                <I src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <Image src={article.image} w alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727313405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n               {/* Affichage de l'image si elle existe */}\n               {article.image && (\n-                <Image src={article.image} w alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <Image src={article.image} widht= alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727318899,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n               {/* Affichage de l'image si elle existe */}\n               {article.image && (\n-                <Image src={article.image} widht= alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <Image src={article.image} widht={250} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727330261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n               {/* Affichage de l'image si elle existe */}\n               {article.image && (\n-                <Image src={article.image} widht={250} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <Image src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727337149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n               {/* Affichage de l'image si elle existe */}\n               {article.image && (\n-                <Image src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <ima src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727417566,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,11 +38,18 @@\n             <div key={article.id} className=\"mb-4 p-4 border border-gray-300 rounded-lg\">\n               <h2 className=\"text-xl font-bold\">Titre: {article.title}</h2>\n               <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n \n-              {/* Affichage de l'image si elle existe */}\n+              {/* Utilisation du composant Image pour optimiser l'image */}\n               {article.image && (\n-                <ima src={article.image} alt={article.title} className=\"mt-2 mb-4 w-full h-auto rounded-lg\" />\n+                <Image \n+                  src={article.image} \n+                  alt={article.title} \n+                  width={600}  // Largeur fixe ou dynamique selon ton besoin\n+                  height={400} // Hauteur fixe ou dynamique\n+                  className=\"mt-2 mb-4 rounded-lg\"\n+                  loading=\"lazy\"  // Chargement différé\n+                />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n                 Voir Détail\n"
+                },
+                {
+                    "date": 1728727433750,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n                 <Image \n                   src={article.image} \n                   alt={article.title} \n                   width={600}  // Largeur fixe ou dynamique selon ton besoin\n-                  height={400} // Hauteur fixe ou dynamique\n+                  height={400} \n                   className=\"mt-2 mb-4 rounded-lg\"\n                   loading=\"lazy\"  // Chargement différé\n                 />\n               )}\n"
+                },
+                {
+                    "date": 1728727444233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,12 +43,12 @@\n               {article.image && (\n                 <Image \n                   src={article.image} \n                   alt={article.title} \n-                  width={600}  // Largeur fixe ou dynamique selon ton besoin\n+                  width={600} \n                   height={400} \n                   className=\"mt-2 mb-4 rounded-lg\"\n-                  loading=\"lazy\"  // Chargement différé\n+                  loading=\"lazy\"  \n                 />\n               )}\n \n               <a href={`/blog/${article.id}`} className=\"mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700\">\n"
+                },
+                {
+                    "date": 1728727535357,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n \"use client\";\n import { useState, useEffect } from \"react\";\n import { Article } from \"../types\";\n+import Image from 'next/image'; \n \n export default function BlogPage() {\n   const [articles, setArticles] = useState<Article[]>([]);\n   const [error, setError] = useState<string | null>(null);  // Pour afficher une erreur si besoin\n"
+                },
+                {
+                    "date": 1728729212455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n \n           return (\n             <div key={article.id} className=\"mb-4 p-4 border border-gray-300 rounded-lg\">\n               <h2 className=\"text-xl font-bold\">Titre: {article.title}</h2>\n-              <p className=\"text-sm text-gray-500\">Publié le: {articleDate.toLocaleDateString()}</p>\n+            \n \n               {/* Utilisation du composant Image pour optimiser l'image */}\n               {article.image && (\n                 <Image \n"
+                },
+                {
+                    "date": 1728729244440,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,15 +32,14 @@\n       {articles.length === 0 && !error ? (\n         <p>Aucun article disponible.</p>\n       ) : (\n         articles.map((article) => {\n-          const articleDate = typeof article.createdAt === 'string' ? new Date(article.createdAt) : article.createdAt;\n \n           return (\n             <div key={article.id} className=\"mb-4 p-4 border border-gray-300 rounded-lg\">\n               <h2 className=\"text-xl font-bold\">Titre: {article.title}</h2>\n-            \n \n+\n               {/* Utilisation du composant Image pour optimiser l'image */}\n               {article.image && (\n                 <Image \n                   src={article.image} \n"
+                },
+                {
+                    "date": 1728729286383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,8 @@\n           return (\n             <div key={article.id} className=\"mb-4 p-4 border border-gray-300 rounded-lg\">\n               <h2 className=\"text-xl font-bold\">Titre: {article.title}</h2>\n \n-\n               {/* Utilisation du composant Image pour optimiser l'image */}\n               {article.image && (\n                 <Image \n                   src={article.image} \n"
                 }
             ],
             "date": 1728655223487,

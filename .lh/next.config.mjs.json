@@ -1,0 +1,30 @@
+{
+    "sourceFile": "next.config.mjs",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1728727490845,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1728729084849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n const nextConfig = {\n \n   crossOrigin: 'anonymous',\n   images: {\n-    domains: ['example.com', 'cdn.example.com'],  // Remplace par le domaine de tes images\n+    domains: ['www.kiwop.com', 'cdn.example.com'],  // Remplace par le domaine de tes images\n   },\n };\n \n export default nextConfig;\n"
+                },
+                {
+                    "date": 1728729092687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n const nextConfig = {\n \n   crossOrigin: 'anonymous',\n   images: {\n-    domains: ['www.kiwop.com', 'cdn.example.com'],  // Remplace par le domaine de tes images\n+    domains: ['www.kiwop.com'],  // Remplace par le domaine de tes images\n   },\n };\n \n export default nextConfig;\n"
+                },
+                {
+                    "date": 1728729099616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n const nextConfig = {\n \n   crossOrigin: 'anonymous',\n   images: {\n-    domains: ['www.kiwop.com'],  // Remplace par le domaine de tes images\n+    domains: ['www.kiwop.com'],  \n   },\n };\n \n export default nextConfig;\n"
+                }
+            ],
+            "date": 1728727490845,
+            "name": "Commit-0",
+            "content": "/** @type {import('next').NextConfig} */\nconst nextConfig = {\n\n  crossOrigin: 'anonymous',\n  images: {\n    domains: ['example.com', 'cdn.example.com'],  // Remplace par le domaine de tes images\n  },\n};\n\nexport default nextConfig;\n"
+        }
+    ]
+}

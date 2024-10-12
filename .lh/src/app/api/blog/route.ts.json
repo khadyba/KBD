@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 19,
             "patches": [
                 {
                     "date": 1728657342901,
@@ -52,6 +52,38 @@
                 {
                     "date": 1728721582830,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n }\n \n export async function POST(request: Request) {\n     try {\n-        const { title, description, date, author } = await request.json();\n+        const { title, description,author } = await request.json();\n \n         // Insérer un nouvel article dans la base de données\n         const newArticle = await prisma.article.create({\n             data: {\n"
+                },
+                {
+                    "date": 1728728806453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,9 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n+                image\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728728812762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                image\n+                image:,\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728728828532,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                image:,\n+                image: image,\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728728837487,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                image: image,\n+                image: ,\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728728851641,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,8 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                image: ,\n                 author: author\n             }\n         });\n \n"
+                },
+                {
+                    "date": 1728728859803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,12 +29,11 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                author: author\n+                author: author \n             }\n         });\n-\n         return new Response(JSON.stringify(newArticle), {\n             headers: {\n                 \"Content-Type\": \"application/json\"\n             },\n"
+                },
+                {
+                    "date": 1728728872713,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n }\n \n export async function POST(request: Request) {\n     try {\n-        const { title, description,author } = await request.json();\n+        const { title, description,,author } = await request.json();\n \n         // Insérer un nouvel article dans la base de données\n         const newArticle = await prisma.article.create({\n             data: {\n"
+                },
+                {
+                    "date": 1728728883099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,15 +22,16 @@\n }\n \n export async function POST(request: Request) {\n     try {\n-        const { title, description,,author } = await request.json();\n+        const { title, description,image,author } = await request.json();\n \n         // Insérer un nouvel article dans la base de données\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n+                image: image\n                 author: author \n             }\n         });\n         return new Response(JSON.stringify(newArticle), {\n"
                 }
             ],
             "date": 1728657342901,
