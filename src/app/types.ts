@@ -6,3 +6,7 @@ export interface Article {
     createdAt: Date;
     image?: string | null
 }
+// type.ts
+
+// Déclaration de module pour Heroicons
+declare module '@heroicons/react/outline';
