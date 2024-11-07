@@ -3,7 +3,7 @@ const nextConfig = {
 
   crossOrigin: 'anonymous',
   images: {
-    domains: ['www.kiwop.com', 'cdn.example.com'],  
+    domains: ['www.kiwop.com', 'cdn.example.com'],],  
   },
 };
 
