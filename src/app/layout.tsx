@@ -17,10 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header style={{
-          backgroundColor: 'tomato',
-          padding: '1rem'
-        }}><Headers /></header>
+        <header><Headers /></header>
         <main style={{
           padding: '1rem'
         }}>
