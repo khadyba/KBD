@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/globals.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1732014295293,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1732014361533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,4 +20,13 @@\n   .text-balance {\n     text-wrap: balance;\n   }\n }\n+/* Exemple CSS pour limiter les marges */\n+* {\n+  margin: 0;\n+  padding: 0;\n+  box-sizing: border-box;\n+}\n+html, body {\n+  overflow-x: hidden; /* Empêche le débordement horizontal */\n+}\n"
+                }
+            ],
+            "date": 1732014295293,
+            "name": "Commit-0",
+            "content": "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n:root {\n  --foreground-rgb: 0, 0, 0;\n  --background-start-rgb: 214, 219, 220;\n  --background-end-rgb: 255, 255, 255;\n}\n\n@media (prefers-color-scheme: dark) {\n  /* :root {\n    --foreground-rgb: 255, 255, 255;\n    --background-start-rgb: 0, 0, 0;\n    --background-end-rgb: 0, 0, 0;\n  } */\n}\n\n@layer utilities {\n  .text-balance {\n    text-wrap: balance;\n  }\n}\n"
+        }
+    ]
+}

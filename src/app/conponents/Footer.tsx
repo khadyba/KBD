@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Footer = () => {
     return (
-        <footer style={{ backgroundColor: "#D5AF4F" }} className="p-6">
+        <footer style={{ backgroundColor: "#A58025" }}  className="p-6">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 {/* Texte du copyright */}
                 <p className="text-white font-bold mb-4 md:mb-0 ml-[500px]">

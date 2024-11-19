@@ -1,0 +1,34 @@
+{
+    "sourceFile": "src/app/create-article/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1731673866431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1731673875562,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import CreateArticleForm from '@/components/CreateArticleForm';\n+import CreateArticleForm from '@';\n \n export default function CreateArticlePage() {\n     return (\n         <div>\n"
+                },
+                {
+                    "date": 1731673881741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import CreateArticleForm from '@';\n+import CreateArticleForm from '@/app/conponents/';\n \n export default function CreateArticlePage() {\n     return (\n         <div>\n"
+                },
+                {
+                    "date": 1731673888264,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,13 @@\n-import CreateArticleForm from '@/app/conponents/';\n+import CreateArticleForm from '@/app/conponents/CreateArticleForm';\n \n+\n+\n+\n+\n+\n+\n+\n export default function CreateArticlePage() {\n     return (\n         <div>\n             <h1>Créer un nouvel article</h1>\n"
+                },
+                {
+                    "date": 1731673940300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,8 @@\n \n \n \n \n-\n-\n-\n-\n export default function CreateArticlePage() {\n     return (\n         <div>\n             <h1>Créer un nouvel article</h1>\n"
+                }
+            ],
+            "date": 1731673866431,
+            "name": "Commit-0",
+            "content": "import CreateArticleForm from '@/components/CreateArticleForm';\n\nexport default function CreateArticlePage() {\n    return (\n        <div>\n            <h1>Créer un nouvel article</h1>\n            <CreateArticleForm />\n        </div>\n    );\n}\n"
+        }
+    ]
+}

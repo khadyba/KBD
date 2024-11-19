@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 19,
+            "activePatchIndex": 21,
             "patches": [
                 {
                     "date": 1728657342901,
@@ -84,6 +84,14 @@
                 {
                     "date": 1728728883099,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,15 +22,16 @@\n }\n \n export async function POST(request: Request) {\n     try {\n-        const { title, description,,author } = await request.json();\n+        const { title, description,image,author } = await request.json();\n \n         // Insérer un nouvel article dans la base de données\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n+                image: image\n                 author: author \n             }\n         });\n         return new Response(JSON.stringify(newArticle), {\n"
+                },
+                {
+                    "date": 1731671161096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n         const newArticle = await prisma.article.create({\n             data: {\n                 title: title,\n                 description: description,\n-                image: image\n+                image: image,\n                 author: author \n             }\n         });\n         return new Response(JSON.stringify(newArticle), {\n@@ -46,5 +46,8 @@\n         return new Response(JSON.stringify({ message: 'Erreur interne du serveur' }), {\n             status: 500\n         });\n     }\n+\n+\n+    \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1731671509581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,7 +47,5 @@\n             status: 500\n         });\n     }\n \n-\n-    \n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1728657342901,

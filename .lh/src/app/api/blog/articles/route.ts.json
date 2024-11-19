@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/app/api/blog/articles/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1731673653179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1731673678600,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import { NextRequest, NextResponse } from 'next/server';\n-import prisma from 'your-prisma-instance';\n+import { PrismaClient } from '@prisma/client';\n \n export async function POST(request: NextRequest) {\n     try {\n         const { title, description, image, author } = await request.json();\n"
+                },
+                {
+                    "date": 1731673714210,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,22 +0,0 @@\n-import { NextRequest, NextResponse } from 'next/server';\n-import { PrismaClient } from '@prisma/client';\n-\n-export async function POST(request: NextRequest) {\n-    try {\n-        const { title, description, image, author } = await request.json();\n-\n-        const newArticle = await prisma.article.create({\n-            data: {\n-                title,\n-                description,\n-                image,\n-                author,\n-            },\n-        });\n-\n-        return NextResponse.json(newArticle, { status: 201 });\n-    } catch (error) {\n-        console.error(\"Erreur lors de la création de l'article:\", error);\n-        return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 });\n-    }\n-}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1731673721765,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,22 @@\n+import { NextRequest, NextResponse } from 'next/server';\n+import { PrismaClient } from '@prisma/client';\n \n+export async function POST(request: NextRequest) {\n+    try {\n+        const { title, description, image, author } = await request.json();\n+\n+        const newArticle = await prisma.article.create({\n+            data: {\n+                title,\n+                description,\n+                image,\n+                author,\n+            },\n+        });\n+\n+        return NextResponse.json(newArticle, { status: 201 });\n+    } catch (error) {\n+        console.error(\"Erreur lors de la création de l'article:\", error);\n+        return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 });\n+    }\n+}\n"
+                },
+                {
+                    "date": 1731673731419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n import { NextRequest, NextResponse } from 'next/server';\n import { PrismaClient } from '@prisma/client';\n \n+const prisma = new PrismaClient();\n+\n export async function POST(request: NextRequest) {\n     try {\n         const { title, description, image, author } = await request.json();\n \n"
+                },
+                {
+                    "date": 1731674656522,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n import { NextRequest, NextResponse } from 'next/server';\n import { PrismaClient } from '@prisma/client';\n+import { writeFile } from 'fs/promises';\n+import path from 'path';\n \n const prisma = new PrismaClient();\n \n export async function POST(request: NextRequest) {\n"
+                },
+                {
+                    "date": 1731674682728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,18 +3,32 @@\n import { writeFile } from 'fs/promises';\n import path from 'path';\n \n const prisma = new PrismaClient();\n-\n export async function POST(request: NextRequest) {\n     try {\n-        const { title, description, image, author } = await request.json();\n+        const formData = await request.formData();\n+        const title = formData.get('title') as string;\n+        const description = formData.get('description') as string;\n+        const author = formData.get('author') as string;\n+        const imageFile = formData.get('image') as File;\n \n+        let imagePath = '';\n+\n+        if (imageFile) {\n+            // Sauvegarde l'image localement\n+            const buffer = await imageFile.arrayBuffer();\n+            const imageName = `${Date.now()}-${imageFile.name}`;\n+            imagePath = `/uploads/${imageName}`;\n+            await writeFile(path.join(process.cwd(), 'public', imagePath), Buffer.from(buffer));\n+        }\n+\n+        // Insère le nouvel article dans la base de données avec le chemin de l'image\n         const newArticle = await prisma.article.create({\n             data: {\n                 title,\n                 description,\n-                image,\n+                image: imagePath,\n                 author,\n             },\n         });\n \n"
+                }
+            ],
+            "date": 1731673653179,
+            "name": "Commit-0",
+            "content": "import { NextRequest, NextResponse } from 'next/server';\nimport prisma from 'your-prisma-instance';\n\nexport async function POST(request: NextRequest) {\n    try {\n        const { title, description, image, author } = await request.json();\n\n        const newArticle = await prisma.article.create({\n            data: {\n                title,\n                description,\n                image,\n                author,\n            },\n        });\n\n        return NextResponse.json(newArticle, { status: 201 });\n    } catch (error) {\n        console.error(\"Erreur lors de la création de l'article:\", error);\n        return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 });\n    }\n}\n"
+        }
+    ]
+}

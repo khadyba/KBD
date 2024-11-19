@@ -13,6 +13,9 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
     },
+    fontFamily: {
+      instrument: ['"Instrument Serif"', 'serif'],
+    },
   },
   plugins: [],
 };

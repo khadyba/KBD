@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1728729506561,
@@ -16,6 +16,10 @@
                 {
                     "date": 1728729521959,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n const navlinks = [\n \n     {\n-        name: \"home\", href: \"/hom\"\n+        name: \"home\", href: \"/home\"\n     },\n     {\n         name: \"blog\", href: \"/blog\"\n     },\n"
+                },
+                {
+                    "date": 1731678165055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n const navlinks = [\n     { name: \"Acceuil\", href: \"/\" },\n     { name: \"Blog\", href: \"/blog\" },\n     { name: \"Contact\", href: \"/contact\" },\n-    { name: \"CréerArticles\", href: \"/create-article\" }\n+    // { name: \"CréerArticles\", href: \"/create-article\" }\n \n ]\n const Headers = () => {\n     const pathname = usePathname()\n"
                 }
             ],
             "date": 1728729506561,

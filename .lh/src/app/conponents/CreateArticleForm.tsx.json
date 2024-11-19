@@ -1,0 +1,70 @@
+{
+    "sourceFile": "src/app/conponents/CreateArticleForm.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 13,
+            "patches": [
+                {
+                    "date": 1731673338403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1731673348874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,9 +68,9 @@\n                     onChange={(e) => setAuthor(e.target.value)}\n                     required\n                 />\n             </label>\n-            <button type=\"submit\">Créer l'article</button>\n+            <button type=\"submit\">Créer l&apos;article</button>\n         </form>\n     );\n }\n \n"
+                },
+                {
+                    "date": 1731673605504,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n     const handleSubmit = async (e: React.FormEvent) => {\n         e.preventDefault();\n         try {\n-            const response = await fetch('/api/articles', {\n+            const response = await fetch('/api./articles', {\n                 method: 'POST',\n                 headers: {\n                     'Content-Type': 'application/json',\n                 },\n"
+                },
+                {
+                    "date": 1731673611060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n     const handleSubmit = async (e: React.FormEvent) => {\n         e.preventDefault();\n         try {\n-            const response = await fetch('/api./articles', {\n+            const response = await fetch('/api/blog/articles', {\n                 method: 'POST',\n                 headers: {\n                     'Content-Type': 'application/json',\n                 },\n"
+                },
+                {
+                    "date": 1731674080098,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,6 @@\n+\n+\n import { useState } from 'react';\n \n function CreateArticleForm() {\n     const [title, setTitle] = useState('');\n"
+                },
+                {
+                    "date": 1731674086372,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n+\"use client \"\n \n-\n import { useState } from 'react';\n \n function CreateArticleForm() {\n     const [title, setTitle] = useState('');\n"
+                },
+                {
+                    "date": 1731674104753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n-\"use client \"\n+\"use client \n+\"\n \n import { useState } from 'react';\n \n function CreateArticleForm() {\n"
+                },
+                {
+                    "date": 1731674110096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n-\"use client \n-\"\n+\"use client\"\n \n import { useState } from 'react';\n \n function CreateArticleForm() {\n"
+                },
+                {
+                    "date": 1731674594405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,29 +4,35 @@\n \n function CreateArticleForm() {\n     const [title, setTitle] = useState('');\n     const [description, setDescription] = useState('');\n-    const [image, setImage] = useState('');\n+    const [image, setImage] = useState<File | null>(null); // Stocke le fichier sélectionné\n     const [author, setAuthor] = useState('');\n \n     const handleSubmit = async (e: React.FormEvent) => {\n         e.preventDefault();\n+\n+        const formData = new FormData();\n+        formData.append('title', title);\n+        formData.append('description', description);\n+        formData.append('author', author);\n+        if (image) {\n+            formData.append('image', image); // Ajoute le fichier image au FormData\n+        }\n+\n         try {\n-            const response = await fetch('/api/blog/articles', {\n+            const response = await fetch('/api/articles', {\n                 method: 'POST',\n-                headers: {\n-                    'Content-Type': 'application/json',\n-                },\n-                body: JSON.stringify({ title, description, image, author }),\n+                body: formData,\n             });\n \n             if (response.ok) {\n                 const newArticle = await response.json();\n                 console.log('Article créé:', newArticle);\n                 // Optionnel : Réinitialiser les champs du formulaire après la création\n                 setTitle('');\n                 setDescription('');\n-                setImage('');\n+                setImage(null);\n                 setAuthor('');\n             } else {\n                 console.error('Erreur lors de la création de l\\'article');\n             }\n@@ -54,13 +60,13 @@\n                     required\n                 />\n             </label>\n             <label>\n-                Image URL:\n+                Image:\n                 <input\n-                    type=\"text\"\n-                    value={image}\n-                    onChange={(e) => setImage(e.target.value)}\n+                    type=\"file\"\n+                    accept=\"image/*\"\n+                    onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}\n                 />\n             </label>\n             <label>\n                 Auteur:\n@@ -70,9 +76,9 @@\n                     onChange={(e) => setAuthor(e.target.value)}\n                     required\n                 />\n             </label>\n-            <button type=\"submit\">Créer l&apos;article</button>\n+            <button type=\"submit\">Créer l'article</button>\n         </form>\n     );\n }\n \n"
+                },
+                {
+                    "date": 1731674602629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,9 +76,9 @@\n                     onChange={(e) => setAuthor(e.target.value)}\n                     required\n                 />\n             </label>\n-            <button type=\"submit\">Créer l'article</button>\n+            <button type=\"submit\">Créer larticle</button>\n         </form>\n     );\n }\n \n"
+                },
+                {
+                    "date": 1731674735765,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n             formData.append('image', image); // Ajoute le fichier image au FormData\n         }\n \n         try {\n-            const response = await fetch('/api/articles', {\n+            const response = await fetch('/api./articles', {\n                 method: 'POST',\n                 body: formData,\n             });\n \n@@ -76,9 +76,9 @@\n                     onChange={(e) => setAuthor(e.target.value)}\n                     required\n                 />\n             </label>\n-            <button type=\"submit\">Créer larticle</button>\n+            <button type=\"submit\">Créer l&apos;article</button>\n         </form>\n     );\n }\n \n"
+                },
+                {
+                    "date": 1731674756129,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,13 +15,13 @@\n         formData.append('title', title);\n         formData.append('description', description);\n         formData.append('author', author);\n         if (image) {\n-            formData.append('image', image); // Ajoute le fichier image au FormData\n+            formData.append('image', image); \n         }\n \n         try {\n-            const response = await fetch('/api./articles', {\n+            const response = await fetch('/api/blog/articles', {\n                 method: 'POST',\n                 body: formData,\n             });\n \n"
+                },
+                {
+                    "date": 1731674766637,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,8 @@\n \n             if (response.ok) {\n                 const newArticle = await response.json();\n                 console.log('Article créé:', newArticle);\n-                // Optionnel : Réinitialiser les champs du formulaire après la création\n                 setTitle('');\n                 setDescription('');\n                 setImage(null);\n                 setAuthor('');\n"
+                },
+                {
+                    "date": 1731675156634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n             formData.append('image', image); \n         }\n \n         try {\n-            const response = await fetch('/api/blog/articles', {\n+            const response = await fetch('/apiarticles', {\n                 method: 'POST',\n                 body: formData,\n             });\n \n"
+                }
+            ],
+            "date": 1731673338403,
+            "name": "Commit-0",
+            "content": "import { useState } from 'react';\n\nfunction CreateArticleForm() {\n    const [title, setTitle] = useState('');\n    const [description, setDescription] = useState('');\n    const [image, setImage] = useState('');\n    const [author, setAuthor] = useState('');\n\n    const handleSubmit = async (e: React.FormEvent) => {\n        e.preventDefault();\n        try {\n            const response = await fetch('/api/articles', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json',\n                },\n                body: JSON.stringify({ title, description, image, author }),\n            });\n\n            if (response.ok) {\n                const newArticle = await response.json();\n                console.log('Article créé:', newArticle);\n                // Optionnel : Réinitialiser les champs du formulaire après la création\n                setTitle('');\n                setDescription('');\n                setImage('');\n                setAuthor('');\n            } else {\n                console.error('Erreur lors de la création de l\\'article');\n            }\n        } catch (error) {\n            console.error('Erreur lors de la requête:', error);\n        }\n    };\n\n    return (\n        <form onSubmit={handleSubmit} className=\"form-container\">\n            <label>\n                Titre:\n                <input\n                    type=\"text\"\n                    value={title}\n                    onChange={(e) => setTitle(e.target.value)}\n                    required\n                />\n            </label>\n            <label>\n                Description:\n                <textarea\n                    value={description}\n                    onChange={(e) => setDescription(e.target.value)}\n                    required\n                />\n            </label>\n            <label>\n                Image URL:\n                <input\n                    type=\"text\"\n                    value={image}\n                    onChange={(e) => setImage(e.target.value)}\n                />\n            </label>\n            <label>\n                Auteur:\n                <input\n                    type=\"text\"\n                    value={author}\n                    onChange={(e) => setAuthor(e.target.value)}\n                    required\n                />\n            </label>\n            <button type=\"submit\">Créer l'article</button>\n        </form>\n    );\n}\n\nexport default CreateArticleForm;\n"
+        }
+    ]
+}
